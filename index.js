@@ -5,7 +5,8 @@ import connectDB from './db.js';
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import adminRoute from './routes/Admin.js'
+import adminRoute from './routes/Admin.js';
+import userRoutes from './routes/User.js'
 
 dotenv.config();
 await connectDB()
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
    res.send('API is running...')
 })
 app.use("/admin", adminRoute);
+app.use("/user", userRoutes);
 
 app.use(function (err, req, res, next) {
     console.log(err)
