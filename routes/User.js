@@ -16,5 +16,5 @@ userControllers.updateUserById);
 router.delete("/:ID",
 // auth(["user", "admin", "superAdmin"]),
 userControllers.deleteUserById);
-// router.post("/login",userControllers.login);
+router.post("/login",userControllers.login);
 export default router;

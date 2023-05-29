@@ -170,11 +170,39 @@ const getUserByParam = async (req, res) => {
  * @description get one user by id
  * @param {Object} req.body
  */
+const login = async (req, res) => {
+  const userName = req.body.userName;
+  const password = req.body.password;
+  try {
+    const loggingUser = await user.findOne({ userName: userName });
+    let docMember = loggingUser.isMember || false;
+    let docConfirm = loggingUser.isConfirmed || false;
+    if (!loggingUser ) {
+      return res.status(400).send("No registred user matched the sent email");
+    }
+    const exist = await bcrypt.compare(password, loggingUser.password);
+    if (!exist) {
+      return res.status(400).send("Invalid password");
+    }
+    const token = jwt.sign(
+      { user_id: loggingUser.id, userName },
+      process.env.JWT_SECRET,
+      { expiresIn: "4h" }
+    );
+    res
+      .status(200)
+      .send({ success: true, data: token, id: loggingUser._id, role: "user" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error");
+  }
+};
 export default {
     createUser,
     updateUserById,
     deleteUserById,
     getAllUser,
     getUserByParam,
+    login,
   };
   

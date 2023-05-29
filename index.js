@@ -6,7 +6,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import adminRoute from './routes/Admin.js';
-import userRoutes from './routes/User.js'
+import userRoutes from './routes/User.js';
+import inboxRoutes from './routes/inbox.js';
+import housesRoutes from './routes/Houses.js';
+import touristResortRoutes from './routes/TouristResort.js';
+import bookingRoutes from './routes/Booking.js'
 
 dotenv.config();
 await connectDB()
@@ -17,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -30,6 +34,10 @@ app.get('/', (req, res) => {
 })
 app.use("/admin", adminRoute);
 app.use("/user", userRoutes);
+app.use("/inbox", inboxRoutes);
+app.use("/houses",housesRoutes);
+app.use("/touristResort",touristResortRoutes);
+app.use("/booking", bookingRoutes);
 
 app.use(function (err, req, res, next) {
     console.log(err)

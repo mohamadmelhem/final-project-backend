@@ -38,7 +38,7 @@ export async function getById(req, res, next) {
  */
 export async function addAdmin(req, res, next) {
   try {
-    const { firstName, lastName, userName, email, password } =
+    const { firstName, lastName, userName, email, password ,isSuper} =
       req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const admin = new adminModel({
@@ -46,6 +46,7 @@ export async function addAdmin(req, res, next) {
       lastName,
       userName,
       email,
+      isSuper,
       password: hashedPassword,
     });
 
@@ -93,5 +94,36 @@ export async function deleteAdminById(req, res, next) {
     res.status(404).json({ message: err });
   }
 }
-const controller = { addAdmin, getAll, deleteAdminById, getById, editAdminById };
+
+
+export const login = async (req, res) => {
+  const userName = req.body.userName;
+  const password = req.body.password;
+  try {
+    const loggingUser = await adminModel.findOne({ userName: userName });
+    console.log(userName)
+    if (!loggingUser) {
+      return res.status(400).send("Invalid username");
+    }
+    const exist = await bcrypt.compare(password, loggingUser.password);
+    if (!exist) {
+      return res.status(400).send("Invalid password");
+    }
+    const token = jwt.sign(
+      { user_id: loggingUser.id, userName },
+      process.env.JWT_SECRET,
+      { expiresIn: '4h'}
+    );
+    let role;
+    if(loggingUser.isSuper){role="superAdmin"}else{role="admin"}
+    res.status(200).send({success:true, data:token, id:loggingUser._id, role:role});
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error");
+  }
+};
+export const test=(req, res)=>{
+  res.send({success:true, message:"passed!"})
+}
+const controller = { addAdmin, getAll, deleteAdminById, getById, editAdminById , login, test};
 export default controller;

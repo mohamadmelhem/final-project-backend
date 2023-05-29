@@ -30,6 +30,10 @@ const adminSchema = Schema(
         "Please fill a valid email address",
       ],
     },
+    isSuper: {
+      type: Boolean,
+      default: false,
+    },
     password: {
       type: String,
       required: [true, "Please enter your password"],
