@@ -26,10 +26,10 @@ const getTouristResortById = async (req, res) => {
  */
 const addTouristResort = async (req, res) => {
     console.log(req.body);
-    let { location, description,images , isStatus, idUser } = req.body;
-    let body = {  description: description, location: location, images:images , isStatus: isStatus,  idUser: idUser };
+    let { location, description,images , isStatus, idUser, name , rating } = req.body;
+    let body = {  description: description, location: location, images:images , isStatus: isStatus,  idUser: idUser, name : name , rating:rating };
     const newTouristResort = new TouristResortModel({
-      description, images , isStatus, location,  idUser
+      description, images , isStatus, location,  idUser, name , rating
     });
     newTouristResort
       .save()

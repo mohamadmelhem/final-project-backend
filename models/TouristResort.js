@@ -4,6 +4,18 @@ const { Schema, model } = mongoose;
 
 const TouristResortSchema = Schema(
   {
+    name: {
+      type: String,
+      trim: true,
+      required: [true, "Please enter the name"],
+    },
+    rating: {
+      type: Number,
+      min: 1, // minimum value
+      max: 5, // maximum value
+      required: true // make it required or remove this line if optional
+    },
+  
     location: {
       type: String,
       // unique: true,
