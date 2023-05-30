@@ -6,7 +6,7 @@ const TouristResortSchema = Schema(
   {
     location: {
       type: String,
-      unique: true,
+      // unique: true,
       trim: true,
       required: [true, "Please enter the location"],
     },
@@ -15,6 +15,11 @@ const TouristResortSchema = Schema(
       trim: true,
       minLength: [3, "the description is too short!"],
     },
+    images: {
+      type: String,
+      required: true,
+      //ref:"Image"
+  },
     idUser: {
       type: Schema.Types.ObjectId,
       ref: "User",

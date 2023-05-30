@@ -26,10 +26,10 @@ const getTouristResortById = async (req, res) => {
  */
 const addTouristResort = async (req, res) => {
     console.log(req.body);
-    let { location, description,isStatus, idUser } = req.body;
-    let body = {  description: description, location: location, isStatus: isStatus,  idUser: idUser };
+    let { location, description,images , isStatus, idUser } = req.body;
+    let body = {  description: description, location: location, images:images , isStatus: isStatus,  idUser: idUser };
     const newTouristResort = new TouristResortModel({
-      description, isStatus, location,  idUser
+      description, images , isStatus, location,  idUser
     });
     newTouristResort
       .save()
@@ -43,6 +43,21 @@ const addTouristResort = async (req, res) => {
         });
       });
   }
+  // const addTouristResort = async (req, res) => { 
+  //   const newTouristResort = new TouristResortModel(req.body);
+  //   newTouristResort 
+  //     .save()
+  //     .then((response) => {
+  //       res.status(200).send({ success: true, response });
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({
+  //         message: `ERROR ${err}`,
+  //         success: false,
+  //       });
+  //     });
+  // }
+  
   
 /**
  * @description update a Tourist Resort by id
