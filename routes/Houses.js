@@ -27,5 +27,4 @@ router.delete("/:ID",
  router.get("/idTouristResort/:idTouristResort",HousesControllers.getHousesByIdTouristResort);
 
 
-
 export default router;
