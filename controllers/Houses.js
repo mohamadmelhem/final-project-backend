@@ -150,6 +150,23 @@ const filterByLocation = async (req, res, next)=>{
 	}
 }
 
+const getHousesByIdTouristResort = async (req, res) => {
+  try {
+    const { idTouristResort } = req.params;
+
+    // Find houses by idTouristResort
+    const houses = await HousesModel.find({ idTouristResort });
+
+    if (houses.length === 0) {
+      return res.status(404).send({ success: false, message: 'No houses found for the provided idTouristResort.' });
+    }
+
+    return res.status(200).send({ success: true, message: 'Houses data retrieved successfully', data: houses });
+  } catch (err) {
+    return res.status(500).send({ message: `Error retrieving houses: ${err}`, success: false });
+  }
+};
+
 const controllers = {
   getAllHouses,
   getHousesById,
@@ -159,5 +176,6 @@ const controllers = {
   filterBySpace,
   filterByPrice,
   filterByLocation,
+  getHousesByIdTouristResort,
 };
 export default controllers;

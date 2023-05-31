@@ -24,6 +24,8 @@ router.delete("/:ID",
  router.get("/space/:space",HousesControllers.filterBySpace);
  router.get("/price/:pricePerNight",HousesControllers.filterByPrice);
  router.get("/location/:location",HousesControllers.filterByLocation);
+ router.get("/idTouristResort/:idTouristResort",HousesControllers.getHousesByIdTouristResort);
+
 
 
 export default router;
