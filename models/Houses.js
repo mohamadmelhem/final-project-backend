@@ -2,6 +2,17 @@ import { Schema, model } from "mongoose";
 
 const housesSchema = new Schema(
     {
+        name: {
+            type: String,
+            required: true,
+        },
+        phone: {
+            type: String,
+            required: [true, "please enter your phone number"],
+            unique: [true, "A user is already registered with this phone number"],
+            trim: true,
+            match: [/^[0-9]*$/, "Please fill a valid phone number"],
+          },
         space: {
             type: String,
             required: true,
