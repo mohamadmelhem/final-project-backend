@@ -28,7 +28,7 @@ const TouristResortSchema = Schema(
       minLength: [3, "the description is too short!"],
     },
     images: {
-      type: String,
+      type: [String],
       required: true,
       //ref:"Image"
   },
