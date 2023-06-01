@@ -94,6 +94,22 @@ const deleteTouristResort = async (req, res) => {
       return res.status(500).send({ error: true, message: "There is a problem deleting the tourist resort" });
     }
   }
+  const getTouristByIdUser = async (req, res) => {
+    try {
+      const { idUser } = req.params;
+  
+      // Find tourist resorts by idUser
+      const touristResorts = await TouristResortModel.find({ idUser });
+  
+      if (touristResorts.length === 0) {
+        return res.status(404).send({ success: false, message: 'No tourist resorts found for the provided idUser.' });
+      }
+  
+      return res.status(200).send({ success: true, message: 'Tourist resorts data retrieved successfully', data: touristResorts });
+    } catch (err) {
+      return res.status(500).send({ message: `Error retrieving tourist resorts: ${err}`, success: false });
+    }
+  };
   
 
 
@@ -103,5 +119,6 @@ const controllers = {
   addTouristResort,
   updateTouristResortById,
   deleteTouristResort,
+  getTouristByIdUser,
 };
 export default controllers;

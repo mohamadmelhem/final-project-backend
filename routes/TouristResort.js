@@ -22,4 +22,6 @@ router.delete("/:ID",
 // auth(["superAdmin", "admin"]),
  packageControllers.deleteTouristResort);
 
+ router.get("/idUser/:idUser",packageControllers.getTouristByIdUser);
+
 export default router;

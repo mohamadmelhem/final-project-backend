@@ -7,7 +7,7 @@ const housesSchema = new Schema(
             required: true,
         },
         images: {
-            type: String,
+            type: [String],
             required: true,
             //ref:"Image"
         },
